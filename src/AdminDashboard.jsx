@@ -6,15 +6,15 @@ import AdminLogs from './AdminLogs';
 import { useAuth } from './AuthContext';
 
 export default function AdminDashboard() {
-  const [tab, setTab]             = useState('notes');
-  const [title, setTitle]         = useState('');
-  const [content, setContent]     = useState('');
-  const [notes, setNotes]         = useState([]);
+  const [tab, setTab] = useState('notes');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [notes, setNotes] = useState([]);
   const [editingId, setEditingId] = useState(null);
-  const [searchTerm, setSearch]   = useState('');
-  const [toast, setToast]         = useState({ msg: '', type: 'ok' });
+  const [searchTerm, setSearch] = useState('');
+  const [toast, setToast] = useState({ msg: '', type: 'ok' });
   const { user } = useAuth();
-  const wrapRef  = useRef(null);
+  const wrapRef = useRef(null);
 
   const notify = (msg, type = 'ok') => {
     setToast({ msg, type });
@@ -92,7 +92,7 @@ export default function AdminDashboard() {
 
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between flex-wrap gap-2 mb-8">
           <div>
             <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "'Bricolage Grotesque', sans-serif" }}>
               Admin Panel
@@ -112,7 +112,7 @@ export default function AdminDashboard() {
         {/* Tabs */}
         <div className="flex gap-1 rounded-xl p-1 w-fit mb-6"
           style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
-          {[['notes','Notes'],['logs','Audit Logs']].map(([id, label]) => (
+          {[['notes', 'Notes'], ['logs', 'Audit Logs']].map(([id, label]) => (
             <button key={id} onClick={() => setTab(id)}
               className="px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-200"
               style={{
@@ -208,7 +208,7 @@ export default function AdminDashboard() {
                         style={{ fontFamily: "'DM Sans', sans-serif" }}>{note.content}</p>
                       <div className="flex items-center justify-between">
                         <span className="text-slate-700 text-xs" style={{ fontFamily: "'DM Mono', monospace" }}>
-                          {note.createdAt ? new Date(note.createdAt).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }) : '—'}
+                          {note.createdAt ? new Date(note.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'}
                         </span>
                         <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                           <button onClick={() => startEdit(note)}

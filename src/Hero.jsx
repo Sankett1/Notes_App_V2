@@ -48,14 +48,14 @@ const FEATURES = [
 ];
 
 const TABLE_ROWS = [
-  ['Create & edit notes',   true,  true],
-  ['Real-time search',      true,  true],
-  ['Export library',        true,  true],
-  ['Personal dashboard',    true,  true],
-  ['Audit log access',      false, true],
-  ['User management',       false, true],
-  ['Account moderation',    false, true],
-  ['System-wide overview',  false, true],
+  ['Create & edit notes', true, true],
+  ['Real-time search', true, true],
+  ['Export library', true, true],
+  ['Personal dashboard', true, true],
+  ['Audit log access', false, true],
+  ['User management', false, true],
+  ['Account moderation', false, true],
+  ['System-wide overview', false, true],
 ];
 
 const STATS = [
@@ -67,13 +67,13 @@ const STATS = [
 
 export default function Hero() {
   const [activeTab, setActiveTab] = useState(null);
-  const heroRef  = useRef(null);
-  const orb1     = useRef(null);
-  const orb2     = useRef(null);
+  const heroRef = useRef(null);
+  const orb1 = useRef(null);
+  const orb2 = useRef(null);
   const titleRef = useRef(null);
   const eyebrowRef = useRef(null);
-  const subRef   = useRef(null);
-  const featRef  = useRef(null);
+  const subRef = useRef(null);
+  const featRef = useRef(null);
 
   useEffect(() => {
     if (activeTab) return;
@@ -85,8 +85,8 @@ export default function Hero() {
       // Hero entrance — staggered, editorial feel
       const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
       tl.fromTo(eyebrowRef.current,
-          { opacity: 0, y: 12, letterSpacing: '0.3em' },
-          { opacity: 1, y: 0, letterSpacing: '0.15em', duration: 1 })
+        { opacity: 0, y: 12, letterSpacing: '0.3em' },
+        { opacity: 1, y: 0, letterSpacing: '0.15em', duration: 1 })
         .fromTo(titleRef.current.querySelectorAll('.word'),
           { opacity: 0, y: 60, skewY: 4 },
           { opacity: 1, y: 0, skewY: 0, duration: 1.1, stagger: 0.12 }, '-=0.5')
@@ -103,30 +103,36 @@ export default function Hero() {
       // Scroll: features
       gsap.fromTo('.feat-card',
         { opacity: 0, y: 48 },
-        { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',
-          scrollTrigger: { trigger: featRef.current, start: 'top 78%' } }
+        {
+          opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',
+          scrollTrigger: { trigger: featRef.current, start: 'top 78%' }
+        }
       );
 
       // Scroll: comparison rows
       gsap.fromTo('.tbl-row',
         { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out',
-          scrollTrigger: { trigger: '.cmp-table', start: 'top 82%' } }
+        {
+          opacity: 1, x: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out',
+          scrollTrigger: { trigger: '.cmp-table', start: 'top 82%' }
+        }
       );
 
       // Scroll: stats
       gsap.fromTo('.stat-block',
         { opacity: 0, scale: 0.92 },
-        { opacity: 1, scale: 1, duration: 0.6, stagger: 0.1,
-          scrollTrigger: { trigger: '.stats-section', start: 'top 80%' } }
+        {
+          opacity: 1, scale: 1, duration: 0.6, stagger: 0.1,
+          scrollTrigger: { trigger: '.stats-section', start: 'top 80%' }
+        }
       );
     }, heroRef);
     return () => ctx.revert();
   }, [activeTab]);
 
-  if (activeTab === 'user-login')   return <UserLogin   onBack={() => setActiveTab(null)} />;
-  if (activeTab === 'admin-login')  return <AdminLogin  onBack={() => setActiveTab(null)} />;
-  if (activeTab === 'user-signup')  return <UserSignup  onBack={() => setActiveTab(null)} />;
+  if (activeTab === 'user-login') return <UserLogin onBack={() => setActiveTab(null)} />;
+  if (activeTab === 'admin-login') return <AdminLogin onBack={() => setActiveTab(null)} />;
+  if (activeTab === 'user-signup') return <UserSignup onBack={() => setActiveTab(null)} />;
   if (activeTab === 'admin-signup') return <AdminSignup onBack={() => setActiveTab(null)} />;
 
   return (
@@ -134,16 +140,22 @@ export default function Hero() {
 
       {/* ── Ambient Light ─────────────────────────────────────── */}
       <div ref={orb1} className="pointer-events-none fixed rounded-full"
-        style={{ width: 700, height: 700, background: 'radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%)',
-          top: -200, left: -180, filter: 'blur(40px)' }} />
+        style={{
+          width: 'min(700px, 90vw)', height: 'min(700px, 90vw)', background: 'radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%)',
+          top: -200, left: 'max(-180px, -15vw)', filter: 'blur(40px)'
+        }} />
       <div ref={orb2} className="pointer-events-none fixed rounded-full"
-        style={{ width: 560, height: 560, background: 'radial-gradient(circle, rgba(14,165,233,0.09) 0%, transparent 70%)',
-          bottom: '5%', right: -140, filter: 'blur(40px)' }} />
+        style={{
+          width: 'min(560px, 80vw)', height: 'min(560px, 80vw)', background: 'radial-gradient(circle, rgba(14,165,233,0.09) 0%, transparent 70%)',
+          bottom: '5%', right: 'max(-140px, -10vw)', filter: 'blur(40px)'
+        }} />
 
       {/* ── Subtle Grid Overlay ───────────────────────────────── */}
       <div className="pointer-events-none fixed inset-0 opacity-[0.025]"
-        style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-          backgroundSize: '72px 72px' }} />
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
+          backgroundSize: '72px 72px'
+        }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 lg:px-12">
 
@@ -172,7 +184,7 @@ export default function Hero() {
 
           {/* Subtitle */}
           <p ref={subRef}
-            className="text-slate-400 text-lg leading-relaxed max-w-xl mx-auto mb-14"
+            className="text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl mx-auto mb-14"
             style={{ fontFamily: "'DM Sans', sans-serif" }}>
             A focused workspace for capturing, organising and retrieving your most important ideas —
             whenever you need them.
@@ -346,8 +358,10 @@ export default function Hero() {
         ══════════════════════════════════════════════════════ */}
         <section className="stats-section pb-28">
           <div className="rounded-2xl p-10 md:p-14 text-center"
-            style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.12) 0%, rgba(14,165,233,0.08) 100%)',
-              border: '1px solid rgba(167,139,250,0.15)' }}>
+            style={{
+              background: 'linear-gradient(135deg, rgba(124,58,237,0.12) 0%, rgba(14,165,233,0.08) 100%)',
+              border: '1px solid rgba(167,139,250,0.15)'
+            }}>
             <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-500 mb-5"
               style={{ fontFamily: "'DM Sans', sans-serif" }}>
               Designed for focus
@@ -358,7 +372,7 @@ export default function Hero() {
             </h2>
             <p className="text-slate-400 text-base leading-relaxed max-w-xl mx-auto mb-10"
               style={{ fontFamily: "'DM Sans', sans-serif" }}>
-              Great ideas don't wait. With a workspace that gets out of your way, you can focus on 
+              Great ideas don't wait. With a workspace that gets out of your way, you can focus on
               the thinking — and let your notes do the remembering.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -430,8 +444,8 @@ export default function Hero() {
                 style={{ fontFamily: "'DM Sans', sans-serif" }}>Our Commitment</h4>
               <p className="text-slate-500 text-sm leading-relaxed"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                We believe great work starts with clear thinking. Notes is built for individuals and 
-                teams who value focus, privacy, and reliability above all else. Your notes are 
+                We believe great work starts with clear thinking. Notes is built for individuals and
+                teams who value focus, privacy, and reliability above all else. Your notes are
                 encrypted, always accessible and never shared.
               </p>
             </div>
@@ -442,8 +456,8 @@ export default function Hero() {
             style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
             <p className="text-slate-400 text-sm leading-relaxed text-center max-w-3xl mx-auto"
               style={{ fontFamily: "'DM Sans', sans-serif" }}>
-              Notes is a professional note-taking platform designed to help individuals and organisations 
-              capture ideas, manage knowledge, and maintain clear records — with confidence that their 
+              Notes is a professional note-taking platform designed to help individuals and organisations
+              capture ideas, manage knowledge, and maintain clear records — with confidence that their
               information is private, organised and always within reach.
             </p>
           </div>
